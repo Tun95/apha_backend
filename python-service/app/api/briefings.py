@@ -46,13 +46,12 @@ def get_briefing(
 def list_briefings(
     db: Annotated[Session, Depends(get_db)],
     skip: int = 0,
-    limit: int = 100
+    limit: int = 100,
 ) -> List[BriefingList]:
     """List all briefings (paginated)"""
     service = BriefingService(db)
     briefings = service.list_briefings(skip=skip, limit=limit)
     return [BriefingList.model_validate(b) for b in briefings]
-
 
 @router.post("/{briefing_id}/generate", status_code=status.HTTP_200_OK)
 def generate_report(

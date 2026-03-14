@@ -1,0 +1,409 @@
+{
+	"info": {
+		"_postman_id": "e57cf1aa-074c-42ef-9735-c617c38592cd",
+		"name": "python-service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23111537",
+		"_collection_link": "https://cloudy-space-392403.postman.co/workspace/ai_work~11f10599-72b5-42a8-805e-1bbeb7d1dfd0/collection/23111537-e57cf1aa-074c-42ef-9735-c617c38592cd?action=share&source=collection_link&creator=23111537"
+	},
+	"item": [
+		{
+			"name": "briefing",
+			"item": [
+				{
+					"name": "create briefing",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"company_name\": \"Acme Holdings\",\n    \"ticker\": \"acme\",\n    \"sector\": \"Industrial Technology\",\n    \"analyst_name\": \"Jane Doe\",\n    \"summary\": \"Acme is benefiting from strong enterprise demand and improving operating leverage, though customer concentration remains a near-term risk.\",\n    \"recommendation\": \"Monitor for margin expansion and customer diversification before increasing exposure.\",\n    \"key_points\": [\n        \"Revenue grew 18% year-over-year in the latest quarter.\",\n        \"Management raised full-year guidance.\",\n        \"Enterprise subscriptions now account for 62% of recurring revenue.\"\n    ],\n    \"risks\": [\n        \"Top two customers account for 41% of total revenue.\",\n        \"International expansion may pressure margins over the next two quarters.\"\n    ],\n    \"metrics\": [\n        {\n            \"name\": \"Revenue Growth\",\n            \"value\": \"18%\"\n        },\n        {\n            \"name\": \"Operating Margin\",\n            \"value\": \"22.4%\"\n        },\n        {\n            \"name\": \"P/E Ratio\",\n            \"value\": \"28.1x\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/briefings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"briefings"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "422",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"companyName\": \"Acme Holdings\",\n    \"ticker\": \"acme\",\n    \"sector\": \"Industrial Technology\",\n    \"analystName\": \"Jane Doe\",\n    \"summary\": \"Acme is benefiting from strong enterprise demand and improving operating leverage, though customer concentration remains a near-term risk.\",\n    \"recommendation\": \"Monitor for margin expansion and customer diversification before increasing exposure.\",\n    \"keyPoints\": [\n        \"Revenue grew 18% year-over-year in the latest quarter.\",\n        \"Management raised full-year guidance.\",\n        \"Enterprise subscriptions now account for 62% of recurring revenue.\"\n    ],\n    \"risks\": [\n        \"Top two customers account for 41% of total revenue.\",\n        \"International expansion may pressure margins over the next two quarters.\"\n    ],\n    \"metrics\": [\n        {\n            \"name\": \"Revenue Growth\",\n            \"value\": \"18%\"\n        },\n        {\n            \"name\": \"Operating Margin\",\n            \"value\": \"22.4%\"\n        },\n        {\n            \"name\": \"P/E Ratio\",\n            \"value\": \"28.1x\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/briefings",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"briefings"
+									]
+								}
+							},
+							"status": "Unprocessable Entity",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Sat, 14 Mar 2026 13:29:16 GMT"
+								},
+								{
+									"key": "server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "content-length",
+									"value": "2692"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"detail\": [\n        {\n            \"type\": \"missing\",\n            \"loc\": [\n                \"body\",\n                \"company_name\"\n            ],\n            \"msg\": \"Field required\",\n            \"input\": {\n                \"companyName\": \"Acme Holdings\",\n                \"ticker\": \"acme\",\n                \"sector\": \"Industrial Technology\",\n                \"analystName\": \"Jane Doe\",\n                \"summary\": \"Acme is benefiting from strong enterprise demand and improving operating leverage, though customer concentration remains a near-term risk.\",\n                \"recommendation\": \"Monitor for margin expansion and customer diversification before increasing exposure.\",\n                \"keyPoints\": [\n                    \"Revenue grew 18% year-over-year in the latest quarter.\",\n                    \"Management raised full-year guidance.\",\n                    \"Enterprise subscriptions now account for 62% of recurring revenue.\"\n                ],\n                \"risks\": [\n                    \"Top two customers account for 41% of total revenue.\",\n                    \"International expansion may pressure margins over the next two quarters.\"\n                ],\n                \"metrics\": [\n                    {\n                        \"name\": \"Revenue Growth\",\n                        \"value\": \"18%\"\n                    },\n                    {\n                        \"name\": \"Operating Margin\",\n                        \"value\": \"22.4%\"\n                    },\n                    {\n                        \"name\": \"P/E Ratio\",\n                        \"value\": \"28.1x\"\n                    }\n                ]\n            }\n        },\n        {\n            \"type\": \"missing\",\n            \"loc\": [\n                \"body\",\n                \"analyst_name\"\n            ],\n            \"msg\": \"Field required\",\n            \"input\": {\n                \"companyName\": \"Acme Holdings\",\n                \"ticker\": \"acme\",\n                \"sector\": \"Industrial Technology\",\n                \"analystName\": \"Jane Doe\",\n                \"summary\": \"Acme is benefiting from strong enterprise demand and improving operating leverage, though customer concentration remains a near-term risk.\",\n                \"recommendation\": \"Monitor for margin expansion and customer diversification before increasing exposure.\",\n                \"keyPoints\": [\n                    \"Revenue grew 18% year-over-year in the latest quarter.\",\n                    \"Management raised full-year guidance.\",\n                    \"Enterprise subscriptions now account for 62% of recurring revenue.\"\n                ],\n                \"risks\": [\n                    \"Top two customers account for 41% of total revenue.\",\n                    \"International expansion may pressure margins over the next two quarters.\"\n                ],\n                \"metrics\": [\n                    {\n                        \"name\": \"Revenue Growth\",\n                        \"value\": \"18%\"\n                    },\n                    {\n                        \"name\": \"Operating Margin\",\n                        \"value\": \"22.4%\"\n                    },\n                    {\n                        \"name\": \"P/E Ratio\",\n                        \"value\": \"28.1x\"\n                    }\n                ]\n            }\n        },\n        {\n            \"type\": \"missing\",\n            \"loc\": [\n                \"body\",\n                \"key_points\"\n            ],\n            \"msg\": \"Field required\",\n            \"input\": {\n                \"companyName\": \"Acme Holdings\",\n                \"ticker\": \"acme\",\n                \"sector\": \"Industrial Technology\",\n                \"analystName\": \"Jane Doe\",\n                \"summary\": \"Acme is benefiting from strong enterprise demand and improving operating leverage, though customer concentration remains a near-term risk.\",\n                \"recommendation\": \"Monitor for margin expansion and customer diversification before increasing exposure.\",\n                \"keyPoints\": [\n                    \"Revenue grew 18% year-over-year in the latest quarter.\",\n                    \"Management raised full-year guidance.\",\n                    \"Enterprise subscriptions now account for 62% of recurring revenue.\"\n                ],\n                \"risks\": [\n                    \"Top two customers account for 41% of total revenue.\",\n                    \"International expansion may pressure margins over the next two quarters.\"\n                ],\n                \"metrics\": [\n                    {\n                        \"name\": \"Revenue Growth\",\n                        \"value\": \"18%\"\n                    },\n                    {\n                        \"name\": \"Operating Margin\",\n                        \"value\": \"22.4%\"\n                    },\n                    {\n                        \"name\": \"P/E Ratio\",\n                        \"value\": \"28.1x\"\n                    }\n                ]\n            }\n        }\n    ]\n}"
+						},
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"company_name\": \"Acme Holdings\",\n    \"ticker\": \"acme\",\n    \"sector\": \"Industrial Technology\",\n    \"analyst_name\": \"Jane Doe\",\n    \"summary\": \"Acme is benefiting from strong enterprise demand and improving operating leverage, though customer concentration remains a near-term risk.\",\n    \"recommendation\": \"Monitor for margin expansion and customer diversification before increasing exposure.\",\n    \"key_points\": [\n        \"Revenue grew 18% year-over-year in the latest quarter.\",\n        \"Management raised full-year guidance.\",\n        \"Enterprise subscriptions now account for 62% of recurring revenue.\"\n    ],\n    \"risks\": [\n        \"Top two customers account for 41% of total revenue.\",\n        \"International expansion may pressure margins over the next two quarters.\"\n    ],\n    \"metrics\": [\n        {\n            \"name\": \"Revenue Growth\",\n            \"value\": \"18%\"\n        },\n        {\n            \"name\": \"Operating Margin\",\n            \"value\": \"22.4%\"\n        },\n        {\n            \"name\": \"P/E Ratio\",\n            \"value\": \"28.1x\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/briefings",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"briefings"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Sat, 14 Mar 2026 14:09:24 GMT"
+								},
+								{
+									"key": "server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "content-length",
+									"value": "1605"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"company_name\": \"Acme Holdings\",\n    \"ticker\": \"ACME\",\n    \"sector\": \"Industrial Technology\",\n    \"analyst_name\": \"Jane Doe\",\n    \"summary\": \"Acme is benefiting from strong enterprise demand and improving operating leverage, though customer concentration remains a near-term risk.\",\n    \"recommendation\": \"Monitor for margin expansion and customer diversification before increasing exposure.\",\n    \"id\": \"0f551b20-f6df-46b3-ac1d-1dea52a661fa\",\n    \"generated\": false,\n    \"generated_at\": null,\n    \"created_at\": \"2026-03-14T15:09:25.609710+01:00\",\n    \"updated_at\": \"2026-03-14T15:09:25.609710+01:00\",\n    \"key_points\": [\n        {\n            \"id\": \"7768f3ee-962f-4d7b-a737-a218ab893c35\",\n            \"point_text\": \"Revenue grew 18% year-over-year in the latest quarter.\",\n            \"display_order\": 0\n        },\n        {\n            \"id\": \"e8ea0555-f55f-4da9-9d9c-96ff0e4badaa\",\n            \"point_text\": \"Management raised full-year guidance.\",\n            \"display_order\": 1\n        },\n        {\n            \"id\": \"20baeeb5-a51e-46b4-acea-4d47e3b179e6\",\n            \"point_text\": \"Enterprise subscriptions now account for 62% of recurring revenue.\",\n            \"display_order\": 2\n        }\n    ],\n    \"risks\": [\n        {\n            \"id\": \"15e2161c-8cc6-4c7f-950c-49d5226299ec\",\n            \"risk_text\": \"Top two customers account for 41% of total revenue.\",\n            \"display_order\": 0\n        },\n        {\n            \"id\": \"503c9651-abac-488d-8e1d-f363c32edd7f\",\n            \"risk_text\": \"International expansion may pressure margins over the next two quarters.\",\n            \"display_order\": 1\n        }\n    ],\n    \"metrics\": [\n        {\n            \"id\": \"bb8c12c2-eac5-4893-b3c0-a8a55c8ad295\",\n            \"metric_name\": \"Revenue Growth\",\n            \"metric_value\": \"18%\",\n            \"display_order\": 0\n        },\n        {\n            \"id\": \"007132a8-3a80-4e89-b1ef-c4961a0f90a4\",\n            \"metric_name\": \"Operating Margin\",\n            \"metric_value\": \"22.4%\",\n            \"display_order\": 1\n        },\n        {\n            \"id\": \"88e69dfb-89f1-4686-bfe3-72de01e917d0\",\n            \"metric_name\": \"P/E Ratio\",\n            \"metric_value\": \"28.1x\",\n            \"display_order\": 2\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "generate report",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/briefings/{{briefingId}}/generate",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"briefings",
+								"{{briefingId}}",
+								"generate"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/briefings/{{briefingId}}/generate",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"briefings",
+										"{{briefingId}}",
+										"generate"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Sat, 14 Mar 2026 14:10:28 GMT"
+								},
+								{
+									"key": "server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "content-length",
+									"value": "144"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Report generation completed\",\n    \"briefing_id\": \"0f551b20-f6df-46b3-ac1d-1dea52a661fa\",\n    \"generated_at\": \"2026-03-14T15:10:28.702190+01:00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "fetch by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/briefings/{{briefingId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"briefings",
+								"{{briefingId}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/briefings/{{briefingId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"briefings",
+										"{{briefingId}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Sat, 14 Mar 2026 14:10:13 GMT"
+								},
+								{
+									"key": "server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "content-length",
+									"value": "1605"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"company_name\": \"Acme Holdings\",\n    \"ticker\": \"ACME\",\n    \"sector\": \"Industrial Technology\",\n    \"analyst_name\": \"Jane Doe\",\n    \"summary\": \"Acme is benefiting from strong enterprise demand and improving operating leverage, though customer concentration remains a near-term risk.\",\n    \"recommendation\": \"Monitor for margin expansion and customer diversification before increasing exposure.\",\n    \"id\": \"0f551b20-f6df-46b3-ac1d-1dea52a661fa\",\n    \"generated\": false,\n    \"generated_at\": null,\n    \"created_at\": \"2026-03-14T15:09:25.609710+01:00\",\n    \"updated_at\": \"2026-03-14T15:09:25.609710+01:00\",\n    \"key_points\": [\n        {\n            \"id\": \"7768f3ee-962f-4d7b-a737-a218ab893c35\",\n            \"point_text\": \"Revenue grew 18% year-over-year in the latest quarter.\",\n            \"display_order\": 0\n        },\n        {\n            \"id\": \"e8ea0555-f55f-4da9-9d9c-96ff0e4badaa\",\n            \"point_text\": \"Management raised full-year guidance.\",\n            \"display_order\": 1\n        },\n        {\n            \"id\": \"20baeeb5-a51e-46b4-acea-4d47e3b179e6\",\n            \"point_text\": \"Enterprise subscriptions now account for 62% of recurring revenue.\",\n            \"display_order\": 2\n        }\n    ],\n    \"risks\": [\n        {\n            \"id\": \"15e2161c-8cc6-4c7f-950c-49d5226299ec\",\n            \"risk_text\": \"Top two customers account for 41% of total revenue.\",\n            \"display_order\": 0\n        },\n        {\n            \"id\": \"503c9651-abac-488d-8e1d-f363c32edd7f\",\n            \"risk_text\": \"International expansion may pressure margins over the next two quarters.\",\n            \"display_order\": 1\n        }\n    ],\n    \"metrics\": [\n        {\n            \"id\": \"bb8c12c2-eac5-4893-b3c0-a8a55c8ad295\",\n            \"metric_name\": \"Revenue Growth\",\n            \"metric_value\": \"18%\",\n            \"display_order\": 0\n        },\n        {\n            \"id\": \"007132a8-3a80-4e89-b1ef-c4961a0f90a4\",\n            \"metric_name\": \"Operating Margin\",\n            \"metric_value\": \"22.4%\",\n            \"display_order\": 1\n        },\n        {\n            \"id\": \"88e69dfb-89f1-4686-bfe3-72de01e917d0\",\n            \"metric_name\": \"P/E Ratio\",\n            \"metric_value\": \"28.1x\",\n            \"display_order\": 2\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "fetch all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/briefings?skip=0&limit=10",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"briefings"
+							],
+							"query": [
+								{
+									"key": "skip",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/briefings?skip=0&limit=10",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"briefings"
+									],
+									"query": [
+										{
+											"key": "skip",
+											"value": "0"
+										},
+										{
+											"key": "limit",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Sat, 14 Mar 2026 14:09:47 GMT"
+								},
+								{
+									"key": "server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "content-length",
+									"value": "1296"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"0f551b20-f6df-46b3-ac1d-1dea52a661fa\",\n        \"company_name\": \"Acme Holdings\",\n        \"ticker\": \"ACME\",\n        \"analyst_name\": \"Jane Doe\",\n        \"generated\": false,\n        \"created_at\": \"2026-03-14T15:09:25.609710+01:00\"\n    },\n    {\n        \"id\": \"cda7e336-716d-4def-8a5f-967ea0774085\",\n        \"company_name\": \"Acme Holdings\",\n        \"ticker\": \"ACME\",\n        \"analyst_name\": \"Jane Doe\",\n        \"generated\": false,\n        \"created_at\": \"2026-03-14T15:08:42.615374+01:00\"\n    },\n    {\n        \"id\": \"7f0086b6-8f5c-4059-b3cb-b1dc85d843a1\",\n        \"company_name\": \"Acme Holdings\",\n        \"ticker\": \"ACME\",\n        \"analyst_name\": \"Jane Doe\",\n        \"generated\": false,\n        \"created_at\": \"2026-03-14T15:07:42.235879+01:00\"\n    },\n    {\n        \"id\": \"6adce928-53ac-45ee-8fa1-16141de97cd6\",\n        \"company_name\": \"Acme Holdings\",\n        \"ticker\": \"ACME\",\n        \"analyst_name\": \"Jane Doe\",\n        \"generated\": false,\n        \"created_at\": \"2026-03-14T15:07:14.193429+01:00\"\n    },\n    {\n        \"id\": \"0ed964e7-951b-4a1a-ac9d-a7f2f982b9c8\",\n        \"company_name\": \"Acme Holdings\",\n        \"ticker\": \"ACME\",\n        \"analyst_name\": \"Jane Doe\",\n        \"generated\": false,\n        \"created_at\": \"2026-03-14T15:02:34.330492+01:00\"\n    },\n    {\n        \"id\": \"db67bc3e-6777-4e7c-a266-753d2aaeed21\",\n        \"company_name\": \"Acme Holdings\",\n        \"ticker\": \"ACME\",\n        \"analyst_name\": \"Jane Doe\",\n        \"generated\": false,\n        \"created_at\": \"2026-03-14T14:52:58.013606+01:00\"\n    },\n    {\n        \"id\": \"ded46895-5d14-4461-9cef-f9855a604d96\",\n        \"company_name\": \"Acme Holdings\",\n        \"ticker\": \"ACME\",\n        \"analyst_name\": \"Jane Doe\",\n        \"generated\": false,\n        \"created_at\": \"2026-03-14T14:46:13.776098+01:00\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "generate html report",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/briefings/{{briefingId}}/html",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"briefings",
+								"{{briefingId}}",
+								"html"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/briefings/{{briefingId}}/html",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"briefings",
+										"{{briefingId}}",
+										"html"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "date",
+									"value": "Sat, 14 Mar 2026 14:10:47 GMT"
+								},
+								{
+									"key": "server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "content-length",
+									"value": "7842"
+								},
+								{
+									"key": "content-type",
+									"value": "text/html; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "<!doctype html><html lang=\"en\"><head><meta charset=\"UTF-8\" /><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" /><title>Briefing Report: Acme Holdings (ACME)</title><style>\n      * {\n        margin: 0;\n        padding: 0;\n        box-sizing: border-box;\n      }\n\n      body {\n        font-family: \"Arial\", sans-serif;\n        line-height: 1.6;\n        color: #333;\n        background-color: #f5f5f5;\n        padding: 2rem;\n      }\n\n      .report-container {\n        max-width: 1000px;\n        margin: 0 auto;\n        background-color: white;\n        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);\n        border-radius: 8px;\n        overflow: hidden;\n      }\n\n      .report-header {\n        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);\n        color: white;\n        padding: 2rem;\n      }\n\n      .report-header h1 {\n        font-size: 2rem;\n        margin-bottom: 0.5rem;\n      }\n\n      .report-meta {\n        font-size: 0.9rem;\n        opacity: 0.9;\n      }\n\n      .report-content {\n        padding: 2rem;\n      }\n\n      .company-section {\n        background-color: #f8f9fa;\n        padding: 1.5rem;\n        border-radius: 6px;\n        margin-bottom: 2rem;\n        border-left: 4px solid #667eea;\n      }\n\n      .company-section h2 {\n        color: #333;\n        margin-bottom: 1rem;\n        font-size: 1.3rem;\n      }\n\n      .info-grid {\n        display: grid;\n        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n        gap: 1rem;\n        margin-top: 1rem;\n      }\n\n      .info-item {\n        background-color: white;\n        padding: 1rem;\n        border-radius: 4px;\n        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);\n      }\n\n      .info-item strong {\n        display: block;\n        color: #667eea;\n        margin-bottom: 0.3rem;\n        font-size: 0.85rem;\n        text-transform: uppercase;\n        letter-spacing: 0.5px;\n      }\n\n      .info-item span {\n        font-size: 1.1rem;\n        color: #333;\n      }\n\n      .section {\n        margin-bottom: 2rem;\n      }\n\n      .section h2 {\n        color: #333;\n        margin-bottom: 1rem;\n        padding-bottom: 0.5rem;\n        border-bottom: 2px solid #e9ecef;\n        font-size: 1.3rem;\n      }\n\n      .section h2 i {\n        color: #667eea;\n        margin-right: 0.5rem;\n      }\n\n      .summary-text {\n        background-color: #f8f9fa;\n        padding: 1.5rem;\n        border-radius: 6px;\n        font-style: italic;\n        line-height: 1.8;\n      }\n\n      .points-list {\n        list-style: none;\n      }\n\n      .points-list li {\n        padding: 0.75rem 1rem;\n        margin-bottom: 0.5rem;\n        background-color: #f8f9fa;\n        border-radius: 4px;\n        border-left: 3px solid #667eea;\n      }\n\n      .points-list li::before {\n        content: \"•\";\n        color: #667eea;\n        font-weight: bold;\n        margin-right: 0.5rem;\n      }\n\n      .risks-list {\n        list-style: none;\n      }\n\n      .risks-list li {\n        padding: 0.75rem 1rem;\n        margin-bottom: 0.5rem;\n        background-color: #fff3f3;\n        border-radius: 4px;\n        border-left: 3px solid #dc3545;\n      }\n\n      .risks-list li::before {\n        content: \"⚠\";\n        color: #dc3545;\n        margin-right: 0.5rem;\n      }\n\n      .metrics-grid {\n        display: grid;\n        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n        gap: 1rem;\n        margin-top: 1rem;\n      }\n\n      .metric-card {\n        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);\n        color: white;\n        padding: 1.5rem;\n        border-radius: 6px;\n        text-align: center;\n      }\n\n      .metric-name {\n        font-size: 0.9rem;\n        opacity: 0.9;\n        margin-bottom: 0.5rem;\n        text-transform: uppercase;\n        letter-spacing: 0.5px;\n      }\n\n      .metric-value {\n        font-size: 1.8rem;\n        font-weight: bold;\n      }\n\n      .recommendation-box {\n        background-color: #e3f2fd;\n        padding: 1.5rem;\n        border-radius: 6px;\n        border-left: 4px solid #2196f3;\n      }\n\n      .recommendation-box h3 {\n        color: #1976d2;\n        margin-bottom: 0.5rem;\n      }\n\n      .recommendation-text {\n        font-size: 1.1rem;\n        line-height: 1.8;\n      }\n\n      .report-footer {\n        padding: 1.5rem 2rem;\n        background-color: #f8f9fa;\n        border-top: 1px solid #e9ecef;\n        font-size: 0.85rem;\n        color: #6c757d;\n        text-align: center;\n      }\n\n      .no-metrics {\n        text-align: center;\n        padding: 2rem;\n        background-color: #f8f9fa;\n        border-radius: 6px;\n        color: #6c757d;\n        font-style: italic;\n      }\n    </style></head><body><div class=\"report-container\"><div class=\"report-header\"><h1>Briefing Report: Acme Holdings (ACME)</h1><div class=\"report-meta\">\n          Report ID: 0f551b20-f6df-46b3-ac1d-1dea52a661fa | Generated: 2026-03-14 14:10:48 UTC\n        </div></div><div class=\"report-content\"><div class=\"company-section\"><h2>Company Overview</h2><div class=\"info-grid\"><div class=\"info-item\"><strong>Sector</strong><span>Industrial Technology</span></div><div class=\"info-item\"><strong>Analyst</strong><span>Jane Doe</span></div><div class=\"info-item\"><strong>Ticker</strong><span>ACME</span></div>\n          </div>\n        </div><div class=\"section\"><h2><i>📊</i> Executive Summary</h2><div class=\"summary-text\">Acme is benefiting from strong enterprise demand and improving operating leverage, though customer concentration remains a near-term risk.</div></div><div class=\"section\"><h2><i>🎯</i> Key Points</h2><ul class=\"points-list\"><li>Revenue grew 18% year-over-year in the latest quarter.</li><li>Management raised full-year guidance.</li><li>Enterprise subscriptions now account for 62% of recurring revenue.</li></ul>\n        </div><div class=\"section\"><h2><i>⚠️</i> Risks</h2><ul class=\"risks-list\"><li>Top two customers account for 41% of total revenue.</li><li>International expansion may pressure margins over the next two quarters.</li></ul>\n        </div><div class=\"section\"><h2><i>📈</i> Key Metrics</h2><div class=\"metrics-grid\"><div class=\"metric-card\"><div class=\"metric-name\">Revenue Growth</div><div class=\"metric-value\">18%</div></div><div class=\"metric-card\"><div class=\"metric-name\">Operating Margin</div><div class=\"metric-value\">22.4%</div></div><div class=\"metric-card\"><div class=\"metric-name\">P/E Ratio</div><div class=\"metric-value\">28.1x</div></div>\n            \n          </div>\n          \n        </div><div class=\"section\"><h2><i>💡</i> Recommendation</h2><div class=\"recommendation-box\"><h3>Analyst Recommendation</h3><div class=\"recommendation-text\">Monitor for margin expansion and customer diversification before increasing exposure.</div></div>\n        </div>\n      </div><div class=\"report-footer\"><p>This report was generated automatically based on analyst input.</p><p>Generated at: 2026-03-14 14:10:48 UTC</p></div>\n    </div>\n  </body></html>"
+						}
+					]
+				}
+			]
+		}
+	]
+}

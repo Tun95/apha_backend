@@ -1,0 +1,682 @@
+{
+	"info": {
+		"_postman_id": "462c739f-138a-426a-b8cf-81983a6e0354",
+		"name": "ts-services",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23111537",
+		"_collection_link": "https://cloudy-space-392403.postman.co/workspace/ai_work~11f10599-72b5-42a8-805e-1bbeb7d1dfd0/collection/23111537-462c739f-138a-426a-b8cf-81983a6e0354?action=share&source=collection_link&creator=23111537"
+	},
+	"item": [
+		{
+			"name": "candidates",
+			"item": [
+				{
+					"name": "create candidate",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-user-id",
+								"value": "user-123",
+								"type": "text"
+							},
+							{
+								"key": "x-workspace-id",
+								"value": "workspace-456",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullName\": \"Tunji Akande\",\n    \"email\": \"tunjiakande@example.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/sample/candidates",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sample",
+								"candidates"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-user-id",
+										"value": "user-123",
+										"type": "text"
+									},
+									{
+										"key": "x-workspace-id",
+										"value": "workspace-456",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"fullName\": \"John Doe\",\n    \"email\": \"john.doe@example.com\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/sample/candidates",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"sample",
+										"candidates"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "167"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"a7-AYa6vxXcEEfcO9uU14/tZnHdMFA\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Mar 2026 11:56:40 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"fd048216-4572-4ee3-bd1b-f805ae2c0685\",\n    \"workspaceId\": \"workspace-456\",\n    \"fullName\": \"John Doe\",\n    \"email\": \"john.doe@example.com\",\n    \"createdAt\": \"2026-03-14T11:56:40.523Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "upload doc",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-user-id",
+								"value": "user-123",
+								"type": "text"
+							},
+							{
+								"key": "x-workspace-id",
+								"value": "workspace-456",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "//Resume\n{\n    \"documentType\": \"resume\",\n    \"fileName\": \"john_doe_resume.txt\",\n    \"rawText\": \"Experienced software engineer with 8 years of experience in full-stack development. Proficient in TypeScript, Node.js, React, and Python. Led multiple successful projects and mentored junior developers. Strong background in system design and cloud architecture (AWS).\"\n}\n\n//Cover letter\n// {\n//     \"documentType\": \"cover_letter\",\n//     \"fileName\": \"john_doe_cover_letter.txt\",\n//     \"rawText\": \"Dear Hiring Manager, I am writing to express my strong interest in the Senior Software Engineer position. With over 8 years of experience building scalable applications, I believe I would be a valuable asset to your team. I have a proven track record of delivering high-quality software and mentoring junior developers.\"\n// }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/candidates/{{candidateId}}/documents",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"candidates",
+								"{{candidateId}}",
+								"documents"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-user-id",
+										"value": "user-123",
+										"type": "text"
+									},
+									{
+										"key": "x-workspace-id",
+										"value": "workspace-456",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "//Resume\n{\n    \"documentType\": \"resume\",\n    \"fileName\": \"john_doe_resume.txt\",\n    \"rawText\": \"Experienced software engineer with 8 years of experience in full-stack development. Proficient in TypeScript, Node.js, React, and Python. Led multiple successful projects and mentored junior developers. Strong background in system design and cloud architecture (AWS).\"\n}\n\n//Cover letter\n// {\n//     \"documentType\": \"cover_letter\",\n//     \"fileName\": \"john_doe_cover_letter.txt\",\n//     \"rawText\": \"Dear Hiring Manager, I am writing to express my strong interest in the Senior Software Engineer position. With over 8 years of experience building scalable applications, I believe I would be a valuable asset to your team. I have a proven track record of delivering high-quality software and mentoring junior developers.\"\n// }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/candidates/{{candidateId}}/documents",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"candidates",
+										"{{candidateId}}",
+										"documents"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "142"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"8e-OrhiFNyomHpDaFkmdOBFFs0WOTE\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Mar 2026 12:19:13 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"07dc8ecf-5a97-463e-b971-67515c6bfe72\",\n    \"documentType\": \"resume\",\n    \"fileName\": \"john_doe_resume.txt\",\n    \"uploadedAt\": \"2026-03-14T12:19:13.204Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "generate summary",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-user-id",
+								"value": "user-123",
+								"type": "text"
+							},
+							{
+								"key": "x-workspace-id",
+								"value": "workspace-456",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/candidates/{{candidateId}}/summaries/generate",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"candidates",
+								"{{candidateId}}",
+								"summaries",
+								"generate"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-user-id",
+										"value": "user-123",
+										"type": "text"
+									},
+									{
+										"key": "x-workspace-id",
+										"value": "workspace-456",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/candidates/{{candidateId}}/summaries/generate",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"candidates",
+										"{{candidateId}}",
+										"summaries",
+										"generate"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "137"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"89-BXV5+slN7KB23HKGT6PmdgutIw8\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Mar 2026 12:19:41 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Summary generation queued\",\n    \"summaryId\": \"b12c9e06-62f6-4ff4-984c-d97a70106a2f\",\n    \"jobId\": \"8b40b157-02fb-44d2-b66a-cd37fdbe3a2e\"\n}"
+						}
+					]
+				},
+				{
+					"name": "fetch all candidate",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-user-id",
+								"value": "user-123",
+								"type": "text"
+							},
+							{
+								"key": "x-workspace-id",
+								"value": "workspace-456",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/sample/candidates",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sample",
+								"candidates"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-user-id",
+										"value": "user-123",
+										"type": "text"
+									},
+									{
+										"key": "x-workspace-id",
+										"value": "workspace-456",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/sample/candidates",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"sample",
+										"candidates"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "337"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"151-C8wzt0nyEC3bHdwUd0fIHSbytWc\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Mar 2026 11:58:40 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"ff844a61-f2dd-4d9c-ab8c-0bd4b2b0ae9e\",\n        \"workspaceId\": \"workspace-456\",\n        \"fullName\": \"John Doe\",\n        \"email\": \"john.doe@example.com\",\n        \"createdAt\": \"2026-03-14T11:58:35.857Z\"\n    },\n    {\n        \"id\": \"fd048216-4572-4ee3-bd1b-f805ae2c0685\",\n        \"workspaceId\": \"workspace-456\",\n        \"fullName\": \"John Doe\",\n        \"email\": \"john.doe@example.com\",\n        \"createdAt\": \"2026-03-14T11:56:40.523Z\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "fetch all sunmmaries",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-user-id",
+								"value": "user-123",
+								"type": "text"
+							},
+							{
+								"key": "x-workspace-id",
+								"value": "workspace-456",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/candidates/{{candidateId}}/summaries",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"candidates",
+								"{{candidateId}}",
+								"summaries"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-user-id",
+										"value": "user-123",
+										"type": "text"
+									},
+									{
+										"key": "x-workspace-id",
+										"value": "workspace-456",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/candidates/{{candidateId}}/summaries",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"candidates",
+										"{{candidateId}}",
+										"summaries"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1581"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"62d-scva6R1SNsyMRE/7R2oybGXipLU\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Mar 2026 12:42:27 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"summaries\": [\n        {\n            \"id\": \"eab3d14a-7b7d-4d90-8ada-77a9807409f4\",\n            \"candidateId\": \"ff844a61-f2dd-4d9c-ab8c-0bd4b2b0ae9e\",\n            \"status\": \"completed\",\n            \"score\": 72,\n            \"strengths\": [\n                \"Communicates clearly\",\n                \"Relevant project experience\",\n                \"Technical skills align\"\n            ],\n            \"concerns\": [\n                \"Limited documentation\",\n                \"Additional documents recommended\"\n            ],\n            \"summary\": \"Candidate has 1 document(s) on file. Based on available information, they appear to have relevant experience.\",\n            \"recommendedDecision\": \"hold\",\n            \"createdAt\": \"2026-03-14T12:37:32.667Z\",\n            \"updatedAt\": \"2026-03-14T12:41:17.377Z\"\n        },\n        {\n            \"id\": \"827bae6d-a70c-4813-8541-62c32e6aef82\",\n            \"candidateId\": \"ff844a61-f2dd-4d9c-ab8c-0bd4b2b0ae9e\",\n            \"status\": \"completed\",\n            \"score\": 72,\n            \"strengths\": [\n                \"Communicates clearly\",\n                \"Relevant project experience\",\n                \"Technical skills align with requirements\"\n            ],\n            \"concerns\": [\n                \"Limited documentation provided\",\n                \"Additional documents recommended\"\n            ],\n            \"summary\": \"Candidate has 1 document(s) on file. Based on available information, they appear to have relevant experience. Further interview recommended to assess fit.\",\n            \"recommendedDecision\": \"hold\",\n            \"createdAt\": \"2026-03-14T12:24:22.953Z\",\n            \"updatedAt\": \"2026-03-14T12:24:39.296Z\"\n        },\n        {\n            \"id\": \"b12c9e06-62f6-4ff4-984c-d97a70106a2f\",\n            \"candidateId\": \"ff844a61-f2dd-4d9c-ab8c-0bd4b2b0ae9e\",\n            \"status\": \"processing\",\n            \"score\": 72,\n            \"strengths\": [\n                \"Communicates clearly\",\n                \"Relevant project exposure\"\n            ],\n            \"concerns\": [\n                \"Limited context provided\"\n            ],\n            \"summary\": \"Summary for candidate ff844a61-f2dd-4d9c-ab8c-0bd4b2b0ae9e using 1 document(s).\",\n            \"recommendedDecision\": \"hold\",\n            \"createdAt\": \"2026-03-14T12:19:41.923Z\",\n            \"updatedAt\": \"2026-03-14T12:21:03.218Z\"\n        }\n    ],\n    \"total\": 3\n}"
+						}
+					]
+				},
+				{
+					"name": "specific summary",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-user-id",
+								"value": "user-123",
+								"type": "text"
+							},
+							{
+								"key": "x-workspace-id",
+								"value": "workspace-456",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/candidates/{{candidateId}}/summaries/{{summaryId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"candidates",
+								"{{candidateId}}",
+								"summaries",
+								"{{summaryId}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-user-id",
+										"value": "user-123",
+										"type": "text"
+									},
+									{
+										"key": "x-workspace-id",
+										"value": "workspace-456",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/candidates/{{candidateId}}/summaries/{{summaryId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"candidates",
+										"{{candidateId}}",
+										"summaries",
+										"{{summaryId}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "435"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1b3-diDnaoqs8jN1+54mU/5DfHAiFuM\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Mar 2026 12:43:01 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"b12c9e06-62f6-4ff4-984c-d97a70106a2f\",\n    \"candidateId\": \"ff844a61-f2dd-4d9c-ab8c-0bd4b2b0ae9e\",\n    \"status\": \"processing\",\n    \"score\": 72,\n    \"strengths\": [\n        \"Communicates clearly\",\n        \"Relevant project exposure\"\n    ],\n    \"concerns\": [\n        \"Limited context provided\"\n    ],\n    \"summary\": \"Summary for candidate ff844a61-f2dd-4d9c-ab8c-0bd4b2b0ae9e using 1 document(s).\",\n    \"recommendedDecision\": \"hold\",\n    \"createdAt\": \"2026-03-14T12:19:41.923Z\",\n    \"updatedAt\": \"2026-03-14T12:21:03.218Z\"\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}

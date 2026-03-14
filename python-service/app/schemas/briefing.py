@@ -14,10 +14,12 @@ class MetricCreate(MetricBase):
     pass
 
 
-class MetricRead(MetricBase):
+class MetricRead(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     
     id: UUID
+    name: str = Field(alias="metric_name")
+    value: str = Field(alias="metric_value")
     display_order: int
 
 
@@ -29,10 +31,11 @@ class KeyPointCreate(KeyPointBase):
     pass
 
 
-class KeyPointRead(KeyPointBase):
+class KeyPointRead(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     
     id: UUID
+    point: str = Field(alias="point_text")
     display_order: int
 
 
@@ -44,25 +47,21 @@ class RiskCreate(RiskBase):
     pass
 
 
-class RiskRead(RiskBase):
+class RiskRead(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     
     id: UUID
+    risk: str = Field(alias="risk_text")
     display_order: int
 
 
 class BriefingBase(BaseModel):
-    company_name: str = Field(..., min_length=1, max_length=255, alias="companyName")
+    company_name: str = Field(..., min_length=1, max_length=255)
     ticker: str = Field(..., min_length=1, max_length=10)
     sector: str = Field(..., min_length=1, max_length=100)
-    analyst_name: str = Field(..., min_length=1, max_length=100, alias="analystName")
+    analyst_name: str = Field(..., min_length=1, max_length=100)
     summary: str = Field(..., min_length=1)
     recommendation: str = Field(..., min_length=1)
-
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=None
-    )
 
     @field_validator('ticker')
     def uppercase_ticker(cls, v: str) -> str:
@@ -70,9 +69,9 @@ class BriefingBase(BaseModel):
 
 
 class BriefingCreate(BriefingBase):
-    key_points: List[str] = Field(..., min_length=2, alias="keyPoints")
-    risks: List[str] = Field(..., min_length=1, alias="risks")
-    metrics: Optional[List[MetricCreate]] = Field(default_factory=list, alias="metrics")
+    key_points: List[str] = Field(..., min_length=2)
+    risks: List[str] = Field(..., min_length=1)
+    metrics: Optional[List[MetricCreate]] = Field(default_factory=list)
 
     @field_validator('key_points')
     def validate_key_points(cls, v: List[str]) -> List[str]:
@@ -94,17 +93,11 @@ class BriefingCreate(BriefingBase):
                 raise ValueError('Metric names must be unique within the briefing')
         return v
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=None
-    )
-
 
 class BriefingRead(BriefingBase):
     model_config = ConfigDict(
         from_attributes=True,
-        populate_by_name=True,
-        arbitrary_types_allowed=True
+        populate_by_name=True
     )
 
     id: UUID
@@ -112,23 +105,20 @@ class BriefingRead(BriefingBase):
     generated_at: Optional[datetime] = None
     created_at: datetime
     updated_at: datetime
-    key_points: List[KeyPointRead] = Field(alias="keyPoints")
-    risks: List[RiskRead] = Field(alias="risks")
-    metrics: List[MetricRead] = Field(alias="metrics")
+    key_points: List[KeyPointRead]
+    risks: List[RiskRead]
+    metrics: List[MetricRead]
 
 
 class BriefingList(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    
     id: UUID
-    company_name: str = Field(alias="companyName")
+    company_name: str
     ticker: str
-    analyst_name: str = Field(alias="analystName")
+    analyst_name: str
     generated: bool
     created_at: datetime
-
-    model_config = ConfigDict(
-        from_attributes=True,
-        populate_by_name=True
-    )
 
 
 class ReportViewModel(BaseModel):

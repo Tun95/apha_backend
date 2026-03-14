@@ -98,7 +98,6 @@ class BriefingService:
         self.db.commit()
 
     def prepare_report_view(self, briefing: Briefing) -> ReportViewModel:
-        """Transform briefing data into report view model"""
         return ReportViewModel(
             report_title=f"Briefing Report: {briefing.company_name} ({briefing.ticker})",
             company_name=briefing.company_name,
