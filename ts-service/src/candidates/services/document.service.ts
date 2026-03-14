@@ -58,8 +58,20 @@ export class DocumentService {
     user: AuthUser,
     candidateId: string,
   ): Promise<CandidateDocument[]> {
+    // First verify the candidate belongs to the workspace
+    const candidate = await this.candidateRepository.findOne({
+      where: { id: candidateId, workspaceId: user.workspaceId },
+    });
+
+    if (!candidate) {
+      throw new NotFoundException("Candidate not found in this workspace");
+    }
+
     return this.documentRepository.find({
-      where: { candidateId, workspaceId: user.workspaceId },
+      where: {
+        candidateId,
+        workspaceId: user.workspaceId, // Still filter by workspace for extra security
+      },
       order: { uploadedAt: "DESC" },
     });
   }
