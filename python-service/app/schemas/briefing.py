@@ -15,6 +15,8 @@ class MetricCreate(MetricBase):
 
 
 class MetricRead(MetricBase):
+    model_config = ConfigDict(from_attributes=True)
+    
     id: UUID
     display_order: int
 
@@ -28,6 +30,8 @@ class KeyPointCreate(KeyPointBase):
 
 
 class KeyPointRead(KeyPointBase):
+    model_config = ConfigDict(from_attributes=True)
+    
     id: UUID
     display_order: int
 
@@ -41,17 +45,24 @@ class RiskCreate(RiskBase):
 
 
 class RiskRead(RiskBase):
+    model_config = ConfigDict(from_attributes=True)
+    
     id: UUID
     display_order: int
 
 
 class BriefingBase(BaseModel):
-    company_name: str = Field(..., min_length=1, max_length=255)
+    company_name: str = Field(..., min_length=1, max_length=255, alias="companyName")
     ticker: str = Field(..., min_length=1, max_length=10)
     sector: str = Field(..., min_length=1, max_length=100)
-    analyst_name: str = Field(..., min_length=1, max_length=100)
+    analyst_name: str = Field(..., min_length=1, max_length=100, alias="analystName")
     summary: str = Field(..., min_length=1)
     recommendation: str = Field(..., min_length=1)
+
+    model_config = ConfigDict(
+        populate_by_name=True,
+        alias_generator=None
+    )
 
     @field_validator('ticker')
     def uppercase_ticker(cls, v: str) -> str:
@@ -59,9 +70,9 @@ class BriefingBase(BaseModel):
 
 
 class BriefingCreate(BriefingBase):
-    key_points: List[str] = Field(..., min_length=2)  # At least 2 key points
-    risks: List[str] = Field(..., min_length=1)       # At least 1 risk
-    metrics: Optional[List[MetricCreate]] = Field(default_factory=list)
+    key_points: List[str] = Field(..., min_length=2, alias="keyPoints")
+    risks: List[str] = Field(..., min_length=1, alias="risks")
+    metrics: Optional[List[MetricCreate]] = Field(default_factory=list, alias="metrics")
 
     @field_validator('key_points')
     def validate_key_points(cls, v: List[str]) -> List[str]:
@@ -83,27 +94,41 @@ class BriefingCreate(BriefingBase):
                 raise ValueError('Metric names must be unique within the briefing')
         return v
 
+    model_config = ConfigDict(
+        populate_by_name=True,
+        alias_generator=None
+    )
+
 
 class BriefingRead(BriefingBase):
-    model_config = ConfigDict(from_attributes=True)
+    model_config = ConfigDict(
+        from_attributes=True,
+        populate_by_name=True,
+        arbitrary_types_allowed=True
+    )
 
     id: UUID
     generated: bool
     generated_at: Optional[datetime] = None
     created_at: datetime
     updated_at: datetime
-    key_points: List[KeyPointRead]
-    risks: List[RiskRead]
-    metrics: List[MetricRead]
+    key_points: List[KeyPointRead] = Field(alias="keyPoints")
+    risks: List[RiskRead] = Field(alias="risks")
+    metrics: List[MetricRead] = Field(alias="metrics")
 
 
 class BriefingList(BaseModel):
     id: UUID
-    company_name: str
+    company_name: str = Field(alias="companyName")
     ticker: str
-    analyst_name: str
+    analyst_name: str = Field(alias="analystName")
     generated: bool
     created_at: datetime
+
+    model_config = ConfigDict(
+        from_attributes=True,
+        populate_by_name=True
+    )
 
 
 class ReportViewModel(BaseModel):
