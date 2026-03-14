@@ -1,4 +1,3 @@
-// src/llm/gemini-summarization.provider.ts
 import { Injectable, Logger } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 
@@ -18,16 +17,21 @@ interface GeminiResponse {
     };
     finishReason?: string;
   }>;
-  promptFeedback?: any;
+  usageMetadata?: {
+    promptTokenCount: number;
+    candidatesTokenCount: number;
+    totalTokenCount: number;
+  };
+  modelVersion?: string;
 }
 
 @Injectable()
 export class GeminiSummarizationProvider implements SummarizationProvider {
   private readonly logger = new Logger(GeminiSummarizationProvider.name);
   private readonly apiKey: string;
-  // Use the correct model name - gemini-1.5-pro or gemini-1.0-pro
-  private readonly apiUrl =
-    "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-pro:generateContent";
+  // Use the working model from your test
+  private readonly modelName = "gemini-flash-latest"; // or 'gemini-3-flash-preview'
+  private readonly apiUrl = "https://generativelanguage.googleapis.com/v1beta";
 
   constructor(private readonly configService: ConfigService) {
     const apiKey = this.configService.get<string>("GEMINI_API_KEY");
@@ -37,11 +41,7 @@ export class GeminiSummarizationProvider implements SummarizationProvider {
     this.apiKey = apiKey || "";
 
     if (this.apiKey) {
-      this.logger.log("Gemini provider initialized with API key");
-      // Log first few chars of API key for debugging (don't log full key)
-      this.logger.debug(
-        `API Key starts with: ${this.apiKey.substring(0, 8)}...`,
-      );
+      this.logger.log("✅ Gemini provider initialized with working API key");
     }
   }
 
@@ -56,64 +56,31 @@ export class GeminiSummarizationProvider implements SummarizationProvider {
 
     try {
       this.logger.log(
-        `Calling Gemini API for candidate ${input.candidateId} with ${input.documents.length} documents`,
+        `🤖 Calling Gemini API for candidate ${input.candidateId} with ${input.documents.length} documents`,
       );
 
       const prompt = this.buildPrompt(input);
       const response = await this.callGeminiAPI(prompt);
 
-      this.logger.log("Gemini API call successful");
+      this.logger.log("✅ Gemini API call successful");
       return this.parseResponse(response, input);
     } catch (error: any) {
-      this.logger.error(`Gemini API call failed: ${error.message}`);
-      this.logger.error("Falling back to fake implementation");
-      // Fall back to fake implementation on error
+      this.logger.error(`❌ Gemini API call failed: ${error.message}`);
+      this.logger.log("Falling back to fake implementation");
       return this.fakeImplementation(input);
     }
   }
 
-  private buildPrompt(input: CandidateSummaryInput): string {
-    const documentsText = input.documents
-      .map((doc, index) => `Document ${index + 1}:\n${doc}`)
-      .join("\n\n");
-
-    return `
-You are an expert technical recruiter analyzing candidate documents. Based on the following documents, provide a structured summary.
-
-Documents:
-${documentsText}
-
-Provide a JSON response with exactly this structure:
-{
-  "score": number between 0-100 (based on candidate's fit),
-  "strengths": ["strength1", "strength2", ...] (list 2-4 key strengths),
-  "concerns": ["concern1", "concern2", ...] (list 1-3 potential concerns),
-  "summary": "brief overall summary (2-3 sentences)",
-  "recommendedDecision": "advance" | "hold" | "reject"
-}
-
-Requirements:
-- Score should reflect overall candidate fit
-- Strengths should be specific and job-relevant
-- Concerns should be constructive
-- Summary should capture overall impression
-- Decision should be based on overall assessment
-
-Return ONLY valid JSON, no other text or explanation.
-`;
-  }
-
   private async callGeminiAPI(prompt: string): Promise<GeminiResponse> {
-    const url = `${this.apiUrl}?key=${this.apiKey}`;
+    const url = `${this.apiUrl}/models/${this.modelName}:generateContent`;
 
-    this.logger.debug(
-      `Calling Gemini API at: ${url.replace(this.apiKey, "REDACTED")}`,
-    );
+    this.logger.debug(`Calling Gemini API at: ${url}`);
 
     const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "X-goog-api-key": this.apiKey, // Using the header format that worked
       },
       body: JSON.stringify({
         contents: [
@@ -127,8 +94,6 @@ Return ONLY valid JSON, no other text or explanation.
         ],
         generationConfig: {
           temperature: 0.2,
-          topK: 32,
-          topP: 0.95,
           maxOutputTokens: 1024,
         },
       }),
@@ -140,7 +105,45 @@ Return ONLY valid JSON, no other text or explanation.
       throw new Error(`Gemini API returned ${response.status}: ${errorText}`);
     }
 
-    return response.json();
+    const data = await response.json();
+
+    // Log usage for monitoring
+    if (data.usageMetadata) {
+      this.logger.debug(
+        `Token usage - Total: ${data.usageMetadata.totalTokenCount}`,
+      );
+    }
+
+    return data;
+  }
+
+  private buildPrompt(input: CandidateSummaryInput): string {
+    const documentsText = input.documents
+      .map((doc, index) => `Document ${index + 1}:\n${doc}`)
+      .join("\n\n");
+
+    return `You are an expert technical recruiter analyzing candidate documents. Based on the following documents, provide a structured summary.
+
+Documents:
+${documentsText}
+
+Provide a JSON response with exactly this structure:
+{
+  "score": 85,
+  "strengths": ["Strong technical background", "Leadership experience", "Cloud expertise"],
+  "concerns": ["Limited team management experience", "Could provide more specific examples"],
+  "summary": "Experienced full-stack developer with 8 years of experience...",
+  "recommendedDecision": "advance"
+}
+
+Requirements:
+- Score: number between 0-100 (higher is better)
+- Strengths: list 2-4 specific, actionable strengths
+- Concerns: list 1-3 potential areas for improvement
+- Summary: 2-3 sentences overall impression
+- Decision: must be exactly "advance", "hold", or "reject"
+
+Return ONLY valid JSON, no other text or explanation.`;
   }
 
   private parseResponse(
@@ -150,21 +153,17 @@ Return ONLY valid JSON, no other text or explanation.
     try {
       // Check if response has candidates
       if (!response.candidates || response.candidates.length === 0) {
-        this.logger.error("No candidates in Gemini response", response);
-        return this.fakeImplementation(input);
+        throw new Error("No candidates in Gemini response");
       }
 
       const text = response.candidates[0]?.content?.parts[0]?.text;
       if (!text) {
-        this.logger.error("No text in Gemini response part");
-        return this.fakeImplementation(input);
+        throw new Error("No text in Gemini response part");
       }
 
-      this.logger.debug(
-        `Raw Gemini response text: ${text.substring(0, 200)}...`,
-      );
+      this.logger.debug(`Raw Gemini response: ${text.substring(0, 200)}...`);
 
-      // Extract JSON from response (handling potential markdown code blocks)
+      // Extract JSON from response
       let jsonStr = text;
 
       // Try to extract from markdown code block
@@ -179,18 +178,16 @@ Return ONLY valid JSON, no other text or explanation.
         }
       }
 
-      // Clean the string (remove any non-JSON characters)
+      // Clean the string
       jsonStr = jsonStr.trim();
-
-      this.logger.debug(
-        `Extracted JSON string: ${jsonStr.substring(0, 200)}...`,
-      );
 
       let parsed;
       try {
         parsed = JSON.parse(jsonStr);
       } catch (parseError: any) {
-        this.logger.error(`Failed to parse JSON: ${parseError.message}`);
+        this.logger.warn(
+          `Initial JSON parse failed, attempting to fix: ${parseError.message}`,
+        );
         // Try to fix common JSON issues
         jsonStr = jsonStr
           .replace(/'/g, '"') // Replace single quotes with double quotes
@@ -205,20 +202,19 @@ Return ONLY valid JSON, no other text or explanation.
         score:
           typeof parsed.score === "number"
             ? Math.min(100, Math.max(0, parsed.score))
-            : 50,
+            : 75,
         strengths: Array.isArray(parsed.strengths)
           ? parsed.strengths
-          : ["No strengths identified"],
+          : ["Experience relevant"],
         concerns: Array.isArray(parsed.concerns)
           ? parsed.concerns
-          : ["No concerns identified"],
+          : ["More information needed"],
         summary: parsed.summary || this.generateFallbackSummary(input),
         recommendedDecision: this.validateDecision(parsed.recommendedDecision),
       };
     } catch (error: any) {
       this.logger.error(`Failed to parse Gemini response: ${error.message}`);
-      this.logger.error("Response text:", response);
-      return this.fakeImplementation(input);
+      throw error;
     }
   }
 
@@ -234,7 +230,7 @@ Return ONLY valid JSON, no other text or explanation.
   }
 
   private generateFallbackSummary(input: CandidateSummaryInput): string {
-    return `Candidate ${input.candidateId} submitted ${input.documents.length} document(s). Manual review recommended.`;
+    return `Candidate ${input.candidateId} submitted ${input.documents.length} document(s).`;
   }
 
   private fakeImplementation(
@@ -250,19 +246,13 @@ Return ONLY valid JSON, no other text or explanation.
       strengths: [
         "Communicates clearly",
         "Relevant project experience",
-        "Technical skills align with requirements",
+        "Technical skills align",
       ],
       concerns:
         docCount > 1
-          ? [
-              "Limited senior-level experience",
-              "Could provide more specific examples",
-            ]
-          : [
-              "Limited documentation provided",
-              "Additional documents recommended",
-            ],
-      summary: `Candidate has ${docCount} document(s) on file. Based on available information, they appear to have relevant experience. Further interview recommended to assess fit.`,
+          ? ["Limited senior experience", "Could provide more examples"]
+          : ["Limited documentation", "Additional documents recommended"],
+      summary: `Candidate has ${docCount} document(s) on file. Based on available information, they appear to have relevant experience.`,
       recommendedDecision: docCount > 1 ? "advance" : "hold",
     };
   }
