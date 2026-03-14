@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ report.report_title }}</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Arial", sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background-color: #f5f5f5;
+        padding: 2rem;
+      }
+
+      .report-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        background-color: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      .report-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 2rem;
+      }
+
+      .report-header h1 {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .report-meta {
+        font-size: 0.9rem;
+        opacity: 0.9;
+      }
+
+      .report-content {
+        padding: 2rem;
+      }
+
+      .company-section {
+        background-color: #f8f9fa;
+        padding: 1.5rem;
+        border-radius: 6px;
+        margin-bottom: 2rem;
+        border-left: 4px solid #667eea;
+      }
+
+      .company-section h2 {
+        color: #333;
+        margin-bottom: 1rem;
+        font-size: 1.3rem;
+      }
+
+      .info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .info-item {
+        background-color: white;
+        padding: 1rem;
+        border-radius: 4px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      .info-item strong {
+        display: block;
+        color: #667eea;
+        margin-bottom: 0.3rem;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .info-item span {
+        font-size: 1.1rem;
+        color: #333;
+      }
+
+      .section {
+        margin-bottom: 2rem;
+      }
+
+      .section h2 {
+        color: #333;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #e9ecef;
+        font-size: 1.3rem;
+      }
+
+      .section h2 i {
+        color: #667eea;
+        margin-right: 0.5rem;
+      }
+
+      .summary-text {
+        background-color: #f8f9fa;
+        padding: 1.5rem;
+        border-radius: 6px;
+        font-style: italic;
+        line-height: 1.8;
+      }
+
+      .points-list {
+        list-style: none;
+      }
+
+      .points-list li {
+        padding: 0.75rem 1rem;
+        margin-bottom: 0.5rem;
+        background-color: #f8f9fa;
+        border-radius: 4px;
+        border-left: 3px solid #667eea;
+      }
+
+      .points-list li::before {
+        content: "•";
+        color: #667eea;
+        font-weight: bold;
+        margin-right: 0.5rem;
+      }
+
+      .risks-list {
+        list-style: none;
+      }
+
+      .risks-list li {
+        padding: 0.75rem 1rem;
+        margin-bottom: 0.5rem;
+        background-color: #fff3f3;
+        border-radius: 4px;
+        border-left: 3px solid #dc3545;
+      }
+
+      .risks-list li::before {
+        content: "⚠";
+        color: #dc3545;
+        margin-right: 0.5rem;
+      }
+
+      .metrics-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .metric-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 1.5rem;
+        border-radius: 6px;
+        text-align: center;
+      }
+
+      .metric-name {
+        font-size: 0.9rem;
+        opacity: 0.9;
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .metric-value {
+        font-size: 1.8rem;
+        font-weight: bold;
+      }
+
+      .recommendation-box {
+        background-color: #e3f2fd;
+        padding: 1.5rem;
+        border-radius: 6px;
+        border-left: 4px solid #2196f3;
+      }
+
+      .recommendation-box h3 {
+        color: #1976d2;
+        margin-bottom: 0.5rem;
+      }
+
+      .recommendation-text {
+        font-size: 1.1rem;
+        line-height: 1.8;
+      }
+
+      .report-footer {
+        padding: 1.5rem 2rem;
+        background-color: #f8f9fa;
+        border-top: 1px solid #e9ecef;
+        font-size: 0.85rem;
+        color: #6c757d;
+        text-align: center;
+      }
+
+      .no-metrics {
+        text-align: center;
+        padding: 2rem;
+        background-color: #f8f9fa;
+        border-radius: 6px;
+        color: #6c757d;
+        font-style: italic;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="report-container">
+      <div class="report-header">
+        <h1>{{ report.report_title }}</h1>
+        <div class="report-meta">
+          Report ID: {{ report.report_id }} | Generated: {{ generated_at }}
+        </div>
+      </div>
+
+      <div class="report-content">
+        <div class="company-section">
+          <h2>Company Overview</h2>
+          <div class="info-grid">
+            <div class="info-item">
+              <strong>Sector</strong>
+              <span>{{ report.sector }}</span>
+            </div>
+            <div class="info-item">
+              <strong>Analyst</strong>
+              <span>{{ report.analyst_name }}</span>
+            </div>
+            <div class="info-item">
+              <strong>Ticker</strong>
+              <span>{{ report.ticker }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2><i>📊</i> Executive Summary</h2>
+          <div class="summary-text">{{ report.summary }}</div>
+        </div>
+
+        <div class="section">
+          <h2><i>🎯</i> Key Points</h2>
+          <ul class="points-list">
+            {% for point in report.key_points %}
+            <li>{{ point }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <div class="section">
+          <h2><i>⚠️</i> Risks</h2>
+          <ul class="risks-list">
+            {% for risk in report.risks %}
+            <li>{{ risk }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <div class="section">
+          <h2><i>📈</i> Key Metrics</h2>
+          {% if report.metrics %}
+          <div class="metrics-grid">
+            {% for metric in report.metrics %}
+            <div class="metric-card">
+              <div class="metric-name">{{ metric.name }}</div>
+              <div class="metric-value">{{ metric.value }}</div>
+            </div>
+            {% endfor %}
+          </div>
+          {% else %}
+          <div class="no-metrics">No metrics available for this briefing.</div>
+          {% endif %}
+        </div>
+
+        <div class="section">
+          <h2><i>💡</i> Recommendation</h2>
+          <div class="recommendation-box">
+            <h3>Analyst Recommendation</h3>
+            <div class="recommendation-text">{{ report.recommendation }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="report-footer">
+        <p>This report was generated automatically based on analyst input.</p>
+        <p>Generated at: {{ generated_at }}</p>
+      </div>
+    </div>
+  </body>
+</html>

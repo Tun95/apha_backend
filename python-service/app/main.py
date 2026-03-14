@@ -1,14 +1,26 @@
 from fastapi import FastAPI
 
-from app.api.health import router as health_router
-from app.api.sample_items import router as sample_items_router
+from app.api import health, sample_items, briefings
 
-app = FastAPI(title="InsightOps Starter Service", version="0.1.0")
+app = FastAPI(title="Briefing Report Generator API", version="1.0.0")
 
-app.include_router(health_router)
-app.include_router(sample_items_router)
+# Include routers
+app.include_router(health.router)
+app.include_router(sample_items.router)
+app.include_router(briefings.router)
 
 
 @app.get("/")
-def root() -> dict[str, str]:
-    return {"service": "InsightOps", "status": "starter-ready"}
+def root():
+    return {
+        "message": "Briefing Report Generator API",
+        "docs": "/docs",
+        "endpoints": [
+            "/health",
+            "/sample-items",
+            "/briefings",
+            "/briefings/{id}",
+            "/briefings/{id}/generate",
+            "/briefings/{id}/html"
+        ]
+    }
