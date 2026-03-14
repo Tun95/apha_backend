@@ -1021,8 +1021,8 @@ curl -X POST "https://generativelanguage.googleapis.com/v1beta/models/gemini-fla
 ## Author
 
 **Your Name**
-- GitHub: [Your GitHub Profile]
-- Email: [Your Email]
+- GitHub: https://github.com/Tun95/apha_backend
+- Email: akandetunji2@gmail.com
 
 ---
 
